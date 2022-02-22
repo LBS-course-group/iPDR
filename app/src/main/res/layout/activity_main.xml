@@ -1,34 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <TextView
+        android:id="@+id/tvx_Accel"
+        android:layout_width="214dp"
+        android:layout_height="30dp"
+        android:text="@string/acc_x"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="100dp" />
+
+    <TextView
+        android:id="@+id/tvy_Accel"
+        android:layout_width="214dp"
+        android:layout_height="30dp"
+        android:text="@string/acc_y"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="100dp" />
+
+    <TextView
+        android:id="@+id/tvz_Accel"
+        android:layout_width="214dp"
+        android:layout_height="30dp"
+        android:text="@string/acc_z"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="234dp" />
+
+    <TextView
+        android:id="@+id/tx_Mag"
+        android:layout_width="214dp"
+        android:layout_height="30dp"
+        android:text="@string/mag_x"
+        tools:layout_editor_absoluteX="117dp"
+        tools:layout_editor_absoluteY="100dp" />
+
+    <TextView
+        android:id="@+id/ty_Mag"
+        android:layout_width="214dp"
+        android:layout_height="30dp"
+        android:text="@string/mag_y"
+        tools:layout_editor_absoluteX="126dp"
+        tools:layout_editor_absoluteY="158dp" />
+
+    <TextView
+        android:id="@+id/tz_Mag"
+        android:layout_width="214dp"
+        android:layout_height="30dp"
+        android:text="@string/mag_z"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="234dp" />
+
+    <TextView
+        android:id="@+id/tx_Gyro"
+        android:layout_width="214dp"
+        android:layout_height="30dp"
+        android:text="@string/gyro_x"
+        tools:layout_editor_absoluteX="117dp"
+        tools:layout_editor_absoluteY="100dp" />
+
+    <TextView
+        android:id="@+id/ty_Gyro"
+        android:layout_width="214dp"
+        android:layout_height="30dp"
+        android:text="@string/gyro_y"
+        tools:layout_editor_absoluteX="126dp"
+        tools:layout_editor_absoluteY="158dp" />
+
+    <TextView
+        android:id="@+id/tz_Gyro"
+        android:layout_width="214dp"
+        android:layout_height="30dp"
+        android:text="@string/gyro_z"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="234dp" />
+
+    <Button
+        android:id="@+id/btn_start"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.IPDR.AppBarOverlay">
+        android:layout_height="76dp"
+        android:text="@string/start" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.IPDR.PopupOverlay" />
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:text="@string/stop" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:text="@string/save" />
 
-    <include layout="@layout/content_main" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

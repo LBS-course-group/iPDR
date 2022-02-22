@@ -1,13 +1,16 @@
 <resources>
     <string name="app_name">iPDR</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="save">Save</string>
+    <string name="acc_x">acc_x: </string>
+    <string name="acc_y">acc_y: </string>
+    <string name="acc_z">acc_z: </string>
+    <string name="gyro_x">gyro_x: </string>
+    <string name="gyro_y">gyro_y: </string>
+    <string name="gyro_z">gyro_z: </string>
+    <string name="mag_x">mag_x: </string>
+    <string name="mag_y">mag_y: </string>
+    <string name="mag_z">mag_z: </string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="start">start</string>
+    <string name="stop">stop</string>
+    <string name="save">save</string>
 </resources>

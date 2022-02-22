@@ -1,81 +1,132 @@
-//Authored by  ,     ,Zing Fong
 package com.example.ipdr;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.ipdr.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
-
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements SensorEventListener,View.OnClickListener
 {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+    private SensorManager mSensorMgr;
+    private  TextView tvx_Accel;
+    private  TextView tvy_Accel;
+    private  TextView tvz_Accel;
+    private TextView tx_Mag;
+    private TextView ty_Mag;
+    private TextView tz_Mag;
 
+    private TextView tx_Gyro;
+    private TextView ty_Gyro;
+    private TextView tz_Gyro;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);//使用XML中的布局文件控制UI界面
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        Button bt = findViewById(R.id.btn_start);
+        bt.setOnClickListener(this);
 
-        setSupportActionBar(binding.toolbar);
+        Button bt_stop = findViewById(R.id.btn_stop);
+        bt_stop.setOnClickListener(this);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        tvx_Accel = findViewById(R.id.tvx_Accel);
+        tvy_Accel = findViewById(R.id.tvy_Accel);
+        tvz_Accel = findViewById(R.id.tvz_Accel);
 
-        binding.fab.setOnClickListener(new View.OnClickListener()
+        tx_Mag = findViewById(R.id.tx_Mag);
+        ty_Mag = findViewById(R.id.ty_Mag);
+        tz_Mag = findViewById(R.id.tz_Mag);
+
+        tx_Gyro = findViewById(R.id.tx_Gyro);
+        ty_Gyro = findViewById(R.id.ty_Gyro);
+        tz_Gyro = findViewById(R.id.tz_Gyro);
+
+        //
+        mSensorMgr = (SensorManager)getSystemService(Context.SENSOR_SERVICE);//获取传感器管理器
+    }
+
+    protected void onPause()
+    {
+        super.onPause();
+        mSensorMgr.unregisterListener(this);
+    }
+
+    protected void onResume()
+    {
+        super.onResume();
+    }
+    protected void onStop()
+    {
+        super.onStop();
+        mSensorMgr.unregisterListener(this);
+    }
+    public void onSensorChanged(SensorEvent event)
+    {
+        if(event.sensor.getType()==Sensor.TYPE_ACCELEROMETER)
         {
-            @Override
-            public void onClick(View view)
-            {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).
-                        setAction("Action", null).show();
-            }
-        });
-    }
+            float[] values_Acc=event.values;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            tvx_Accel.setText(getString(R.string.acc_x)+Float.toString(values_Acc[0]));//输出三轴加速度计
+            tvy_Accel.setText(getString(R.string.acc_y)+Float.toString(values_Acc[1]));
+            tvz_Accel.setText(getString(R.string.acc_z)+Float.toString(values_Acc[2]));
         }
+        if(event.sensor.getType()==Sensor.TYPE_MAGNETIC_FIELD)
+        {
+            float[] values_Mag= event.values;
+            tx_Mag.setText(getString(R.string.mag_x)+Float.toString(values_Mag[0]));//输出三轴磁力计
+            ty_Mag.setText(getString(R.string.mag_y)+Float.toString(values_Mag[1]));
+            tz_Mag.setText(getString(R.string.mag_z)+Float.toString(values_Mag[2]));
+        }
+        if(event.sensor.getType()==Sensor.TYPE_GYROSCOPE)
+        {
+            float[] values_Gyro= event.values;
+            tx_Gyro.setText(getString(R.string.gyro_x)+Float.toString(values_Gyro[0]));//输出三轴陀螺
+            ty_Gyro.setText(getString(R.string.gyro_y)+Float.toString(values_Gyro[1]));
+            tz_Gyro.setText(getString(R.string.gyro_z)+Float.toString(values_Gyro[2]));
 
-        return super.onOptionsItemSelected(item);
+        }
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+    public void onAccuracyChanged(Sensor sensor,int accuracy)
+    {
+        //不用处理，空着就行
+    }
+    public void onClick(View v)
+    {
+        if(v.getId()==R.id.btn_start)
+        {
+            mSensorMgr.unregisterListener(this,
+                    mSensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+            mSensorMgr.registerListener(this,
+                    mSensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+
+
+            mSensorMgr.unregisterListener(this,
+                    mSensorMgr.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD));
+            mSensorMgr.registerListener(this,
+                    mSensorMgr.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+
+
+            mSensorMgr.unregisterListener(this,
+                    mSensorMgr.getDefaultSensor(Sensor.TYPE_GYROSCOPE));
+            mSensorMgr.registerListener(this,
+                    mSensorMgr.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }
+        if(v.getId()==R.id.btn_stop)
+        {
+            mSensorMgr.unregisterListener(this);
+        }
     }
 }
