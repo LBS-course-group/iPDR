@@ -11,7 +11,8 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.ipdr.databinding.FragmentFirstBinding;
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements View.OnClickListener
+{
 
     private FragmentFirstBinding binding;
 
@@ -19,17 +20,19 @@ public class FirstFragment extends Fragment {
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
-    ) {
-
+    )
+    {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+        binding.buttonFirst.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(FirstFragment.this)
@@ -39,7 +42,19 @@ public class FirstFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
+    public void onClick(View view)
+    {
+        switch (view.getId())
+        {
+            case R.id.button_save:
+
+        }
+    }
+
+
+    @Override
+    public void onDestroyView()
+    {
         super.onDestroyView();
         binding = null;
     }
